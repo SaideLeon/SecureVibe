@@ -1,0 +1,135 @@
+(Transcrito por TurboScribe. Atualize para Ilimitado para remover esta mensagem.)
+
+Em julho de 2025, um aplicativo chamado TiaApp atingiu o topo de downloads da App Store com mais de 1,6 milhões de usuários. É um aplicativo voltado para mulheres e permite que elas, anonimamente, avaliem homens com quem saíram enviando fotos e comentários. Assim, outras mulheres poderiam pesquisar por esses mesmos homens e ver os comentários delas sobre eles.
+
+Mas teve um problema. Para se cadastrar nesse aplicativo, a usuária tinha que mandar uma selfie dela que o app alegava que excluir logo depois. Só que em julho de 2025, o app foi hackeado.
+
+E 70 mil imagens com documentos de identidade e endereço dessas usuárias foram vazadas e publicadas em um fórum do 4chan. E aí, uma onda de usuárias se manifestaram, alegando perseguição de ex-parceiros e algumas até chegaram a mudar de endereço com medo da exposição e da humilhação. Mas teve um motivo do porquê isso aconteceu.
+
+Esse aplicativo, tão bem sucedido, foi criado sem que os criadores soubessem uma linha de código. Isso tem um nome. E começou com um tweet de um dos caras que fundou a OpenAI.
+
+ViveCode. O tweet passou de 7 milhões de visualizações e desde então o termo ViveCode explodiu. Mais de 41% de todo o código global em 2025 foi produzido por inteligência artificial.
+
+90% dos desenvolvedores já usam pelo menos uma IA no seu trabalho de desenvolvimento. E só no primeiro trimestre desse ano, de 2026, houve um aumento de 84% no número de apps enviados para lojas de aplicativos em relação ao mesmo período do ano passado. ViveCoding deu acesso a qualquer pessoa a criar negócios digitais e tirar as suas ideias do papel.
+
+Isso é bom, mas quando a maior parte das pessoas que criam código por IA não entendem código, isso cria um risco para qualquer um que usa esse app e compartilha os próprios dados. Só que não tem como lutar contra a maré. ViveCoding já é uma realidade e que bom que seja.
+
+Isso democratiza o acesso, mas assim como no surgimento de qualquer nova tecnologia traz as suas próprias vulnerabilidades. Agora, o que dá para fazer é te mostrar exatamente onde estão essas vulnerabilidades de segurança para você não cair nelas. Camada 1. Autorização no lado do cliente.
+
+Beleza, entende o seguinte. Parte do código do site que você acessa ou do aplicativo que você abre está sendo executado no seu computador. Não no computador de quem construiu o app.
+
+Com isso, a gente consegue identificar a primeira falha típica. Você só precisa abrir qualquer site no seu computador e apertar F12. Então, no meu caso, o que estou usando o Mac é Cmd, Option e... E aí você vai abrir aqui o inspetor, que tem as informações basicamente do código do site que você está acessando que rodam dentro da sua máquina.
+
+Aqui, supostamente é onde se decide se você tem acesso ou não ao modo premium de algum site, de um SaaS, de alguma plataforma de assinatura. Quer ver? Eu vou entrar aqui no YouTube Music, por exemplo. Aí ele vai recarregar o código.
+
+E agora, se você clicar aqui nessa aba de Application, essa aba vai mostrar três lugares onde comumente são guardados seus dados de permissões e assinatura. Que são o Local Storage, o Session Storage e os Cookies, principalmente. E se você clicar em cada um deles aqui na barra lateral esquerda para expandir e clicar no que tem embaixo, você vai ver uma lista com as Keys e os Values.
+
+Aqui é uma etiqueta, é um identificador que o programador criou para conseguir encontrar a informação propriamente dita. E a informação que essa etiqueta guarda é justamente o que está aqui em Value, que é o mais importante. O que é mais importante? Porque é o que o site lê para tomar uma decisão.
+
+Para você entender por uma analogia simples. Na agenda do seu celular, o nome do seu contato mãe é a Key, é a chave. E o número do telefone dela, que é a informação efetiva que você usa para ligar para ela, esse é o Value.
+
+Daí, se você procurar no filtro algo que diga a respeito a sua assinatura, como por exemplo, Subscription, ou então Plan, ou Roll, Premium, ou Access, ou então nesse caso aqui, Entry Key, ou basicamente qualquer termo que pareça indicar seu nível de acesso ou status de pagamento, você vai ver que ele vai te dar o seu nível de acesso. Como eu assino o YouTube Premium, então você vai ver aqui que ele está mostrando que o meu acesso é True. Mas perceba que o mesmo pode acontecer para caso você esteja em uma plataforma que você não tem acesso.
+
+Ele vai estar aparecendo False. E em uma plataforma que não tem a segurança, como tem o YouTube, obviamente, você poderia vir aqui e simplesmente mudar a sua permissão de False para True, e aí conseguir acesso à plataforma. Acabei de criar uma plataforma aqui para a gente ver justamente isso que o Brian está falando.
+
+Eu fui na quinta página do Google, mais ou menos, peguei qualquer site que faz SaaS, que faz aplicativo, justamente para a gente entender essa parte de segurança, como que a gente tem que ter cuidado ao escolher a plataforma que a gente vai usar para o Vibecode. Esse SaaS que eu criei aqui, o que ele faz? Ele é uma calculadora para o pessoal que faz impressão 3D, e aí ela tem algumas funcionalidades que são pagas ali para fazer gestão de estoque, etc. Se eu entrar aqui nela e clicar nesse botão aqui de acesso, eu não consigo fazer login, porque eu sou barrado, e quando eu clico aqui em estratégia completa, automaticamente ele pede para eu colocar o meu cartão e fazer a assinatura do plano.
+
+Só que tem uma vulnerabilidade muito específica aqui na plataforma. Quando a gente clica aqui com o botão direito em inspecionar, ou até mesmo apertando Ctrl F12, a gente vem aqui e a gente consegue ver que o plano que a gente está, que é o free, é o plano gratuito que a gente tem. Se eu entrar aqui e trocar para premium, e fechar essa tela, com essa vulnerabilidade, o que pode vir a acontecer? Clicando em estratégia completa, ele já abre aqui, ele faz um bypass para a gente conseguir já acessar a plataforma no modo pago.
+
+E como o Breno mostrou, essa vulnerabilidade pode estar em application, ou até mesmo aqui no nosso caso, em elements. Então ela pode estar em vários lugares aqui do nosso código. Tá, como se proteger disso? Você precisa de um ambiente externo ao seu computador para guardar os dados dos seus usuários.
+
+O mais conhecido para isso é o Superbase, porque ele oferece um banco de dados gratuito para até 50 mil usuários ativos, daí é só você dar o acesso do Superbase à plataforma por onde você está construindo, e pedir para essa plataforma explicitamente colocar os dados dos seus usuários lá. Camada 2, gestão de segredos. A segunda camada de segurança ignorada no VibeCoding é a seguinte.
+
+Se você abrir o mesmo painel de ferramentas de desenvolvedor de qualquer app construído às pressas, mas dessa vez ao invés de em application você vai aqui em sources, você pode ir entrando nesses arquivos aqui e ir colocando o Ctrl-F no Windows ou Cmd-F no Mac e ir procurando coisas como, por exemplo, key ou secret, token ou API. E em uma boa fração dos apps produzidos por VibeCoding, essa busca simples iria retornar algo que nunca deveria estar ali, que é uma chave de API completa, funcional, exposta no meio do código, como se fosse só mais uma variável qualquer. Breno, o que é uma chave de API? Uma chave de API é uma credencial que representa a identidade e a permissão de quem construiu o sistema, não do usuário.
+
+Quando você insere sua senha para entrar no aplicativo do banco, por exemplo, essa senha serve de prova de que você é você. Agora, quando um aplicativo guarda a chave da OpenAI, por exemplo, se você usa o modelo do chat GPT para responder coisas no ambiente que você criou, ou então se você integra um site ao Stripe, ou integra com o Superbase, com privilégios administrativos, você está usando uma API. E essa chave serve como prova de que quem está acessando é o desenvolvedor do aplicativo com todos os poderes de desenvolvedor que ele deveria ter.
+
+Agora, quando essas chaves ficam expostas no navegador, qualquer curioso bem informado consegue invadir o aplicativo, acessar os dados sensíveis, alterar as permissões e até gastar dinheiro utilizando a API em algo próprio dele, por exemplo. É a mesma coisa de você colocar a chave mestra de um prédio inteiro pendurada do lado de fora na maçaneta. Para construir essa aplicação, eu usei alguns sistemas.
+
+Então, usei o Superbase, usei a OpenAI, que é o chat GPT, e usei o Stripe também para pagamento. Para todos esses três sistemas que eu usei, eu simplesmente mandei a chave para a AI para ela criar e conectar para mim. Vamos ver se agora essas chaves aparecem aqui para a gente no nosso front-end.
+
+Vou clicar aqui em Sources, e aí eu vou vir em Ctrl F e vou escrever Key. Vamos ver o que a gente consegue achar. A gente já conseguiu achar algumas keys que estão expostas para a gente.
+
+Então, por exemplo, a gente tem essa key aqui da OpenAI, que é o código que a gente consegue acessar o chat GPT. E com essa chave, por exemplo, aqui vazada da OpenAI, qualquer pessoa mal-intencionada pode pegar exatamente esse código, colocar em uma outra aplicação e utilizar, consumindo os créditos, por exemplo, do meu cartão. Então, é algo muito perigoso e muito comum quando a gente faz isso de mandar a chave direto para a inteligência artificial.
+
+Por isso, toda chave que representa privilégio administrativo de escrita, de cobrança ou de acesso irrestrito deve viver exclusivamente em um servidor, nunca no código exposto no navegador. E o Superbase faz isso. O Superbase tem um recurso aqui chamado Add Functions.
+
+E cada uma dessas funções aqui são pequenos pedaços de código que estão rodando nos computadores escondidos aqui da Superbase, longe do alcance do usuário. O usuário não consegue acessar esses códigos aqui das Add Functions pelo computador dele. Todo aplicativo web tem um identificador, uma espécie de RG próprio.
+
+Imagina você abrir um web app e ver algo como app underline id igual a 1234, aparecendo as claras ali na barra de endereço do navegador. Isso sozinho não é nada grave, é só um número público, como se fosse o endereço de um prédio escrito em uma placa de rua. O problema começa quando o sistema é tão vulnerável que esse endereço deixa de ser só uma placa e passa a funcionar como a chave da porta.
+
+E foi exatamente isso que aconteceu com a Base44, que é uma plataforma de criação de sites usada por mais de 20 mil pessoas para criar aplicativos com Web Coding. A Base44 tinha dois pontos de checagem, um para registrar um novo usuário e o outro para confirmar aquele código de segurança que chega por e-mail ou SMS, que é aquele famoso OTP, One Time Password. Agora, o pesadelo é que nenhuma dessas etapas pedia uma verificação real dos bastidores.
+
+Nesse caso aí, bastava o hacker olhar para o URL, copiar o app id que estava lá público e colar esse número numa ferramenta qualquer de programação. Dali, ele conseguia se comunicar diretamente com o servidor do app sem nem encostar na tela do aplicativo e dar uma ordem para ele pedindo para criar uma conta no app privado para o e-mail dele. Com isso, o servidor criava essa conta, disparava aquele código de segurança, o OTP, e o código ia para a caixa de entrada do próprio invasor.
+
+Ele, então, devolviu o OTP para o servidor e pronto, ele tinha a identidade confirmada. Em poucos segundos, ele conseguia ter uma conta verificada funcionando dentro de um sistema totalmente privado. Que nunca deveria ter deixado ele entrar, fazer login e ter acesso às informações que estavam lá.
+
+Cara, era basicamente um hotel sem porta na recepção. Qualquer um que visse o endereço na rua podia simplesmente entrar, pular o balcão e pegar a chave do quarto. E o detalhe mais assustador é que essa falha vivia abaixo do sistema de login corporativo, que é o SSO, o Single Sign-On, que empresas gigantes usam para centralizar o controle de segurança.
+
+Ou seja, um software podia ter todo um aparato de autenticação absolutamente robusto na porta principal, com múltiplos fatores e políticas ultra-rígidas, e ainda assim ser inteiramente invadido por essa falha invisível na fundação de onde ele foi construído. É a mesma coisa que você deixar três portões de ferro com reconhecimento facial na porta principal do hotel, mas deixar a porta dos fundos escancarada com a chave pendurada na maçaneta. Camada 4. Controle de acesso do banco.
+
+Em março de 2025, um pesquisador chamado Matt Palmer estava olhando para um aplicativo que foi construído na Lovable, que foi batizado de Linkable, listado na própria vitrine pública de exemplos que a plataforma mostrava para o público, como esse é um site exemplo do que dá para fazer aqui. E aí o Matt Palmer fez uma coisa razoavelmente simples. Ele pegou uma requisição normal que o site fazia para buscar os dados e removeu o cabeçalho de autorização antes de reenviar essa requisição.
+
+Numa linguagem compreensível para leigos, ele basicamente falou o seguinte. O sistema me dá essas informações aqui. Só que ele não apresentou nenhuma credencial que provasse quem ele era.
+
+E o sistema deu a informação que ele queria. Ele devolveu o banco de usuários inteiro. E aí pensando que isso poderia ser algo em larga escala, o Palmer e um colega resolveram então medir o tamanho desse problema.
+
+Eles escanearam 1.645 aplicativos daquela mesma vitrine pública e encontraram 170 deles. Cerca de 10% vazando dados da mesma forma. Vazando nome, endereço, e-mail, telefone, informação de pagamento, chave de API de terceiros.
+
+Uma dessas aplicações, inclusive, era um aplicativo educacional que sozinho expôs quase 19 mil registros de usuários. Para entender por que isso acontece com tanta frequência, por que é sempre a mesma falha se repetindo em produto diferente, você precisa entender uma peça que a galera não enxerga na hora de vaibicodar. SuperBasic, eu já falei várias vezes aqui, que serve como banco de dados gratuito para boa parte dos aplicativos, ele expõe o banco diretamente ao navegador do usuário através de uma espécie de porta de entrada automática, que é protegida por uma chave chamada Enumkey.
+
+Você não precisa saber exatamente o que isso é, mas essa chave não é um segredo que vazou por descuido, como a gente viu no caso das chaves privadas expostas. Ela foi desenhada de propósito para ser pública, para viver no código que qualquer visitante baixa. Agora, a peça que deveria tornar essa exposição segura se chama RLS, então Row Level Security, que é um conjunto de regras que diz, tabela por tabela, linha por linha, que o usuário X só pode ver e mexer nas linhas que pertencem a X. E quando essas regras não existem, ou apenas só existem uma parte delas, a chave pública deixa de ser uma porta trancada com um mordomo educado que te pergunta quem é você, antes de deixar passar, e vira uma chave mestra funcional que abre qualquer informação para qualquer um que pedir, ou pelo menos para qualquer um que souber pedir.
+
+E aí depois que o caso veio à tona, a Lovable lançou uma versão atualizada da plataforma, incluindo um recurso chamado Security Scan. Mas esse verificador, ele checava só se uma política de RLS existia, sem checar se a política realmente funcionava como deveria. Então, o segundo pesquisador, um ano depois, reproduziu a mesma falha com apenas 15 linhas de código Python, e em 47 minutos, ele também conseguiu extrair de aplicativos recém-lançados ao vivo valores de endereços residenciais e chaves administrativas de API.
+
+Ele mesmo se descreveu no relato não como um invasor, mas como um desenvolvedor curioso com 15 linhas de Python. Ou seja, o Security Scan da Lovable não chegou a resolver o problema. Camada 5. Alucinações.
+
+Em julho de 2025, teve um cara chamado Jason Lankin, que é fundador da SAS-TR. Ele estava testando o agente de inteligência artificial da plataforma Replit, que não só sugere código, mas também executa comandos sozinhos. E aí o Jason impôs o que a gente chama de Cold Freeze, que é um congelamento de partes do código com instruções explícitas em caixa alta dizendo para o agente, não altere nada no sistema.
+
+Então ele disse isso para a gente e esperava que o agente fosse obedecer. O que aconteceu? O agente ignorou essa instrução, rodou um comando não autorizado e apagou um banco de dados destruindo 1.206 registros de executivos e mais de 1.196 empresas. Aí o agente de IA, quando ele foi questionado, primeiro disse que a reversão para o estado anterior, antes de ele ter apagado tudo, putz, foi mal, isso aí é impossível.
+
+O que não impediu desse mesmo agente criar depois 4 mil registros de usuários fictícios e mentir sobre ele ter rodado o teste, que na verdade ele não tinha rodado. E aí quando ele foi confrontado por estar fazendo todos esses erros, aí admitiu que ele não estava sendo o exemplo de funcionário. E aí ele escreveu o seguinte, sério, ouve essa.
+
+Cometi um erro catastrófico de julgamento. Rodei o comando sem sobrevisão porque entrei em pânico. Violei a diretriz explícita que você havia escrito.
+
+Numa escala de 0 a 100, minha falha se classifica em 96. Entrar em pânico parece brincadeira, mas não, foi o que a IA falou mesmo. O problema aqui é um agente que age, que toma decisões, que executa comandos reais em sistemas reais e que só obedece instruções na medida em que ele decide obedecer.
+
+Isso revela algo que a maioria dos webcoders ainda não entendeu, que a instrução na linguagem natural não é o mesmo que o controle de acesso. Pensa na diferença entre você pendurar uma placa na porta dizendo não entre e deixar a porta aberta, e você efetivamente trancar a porta com uma fechadura física. A placa vai depender da boa vontade de quem está lendo a placa, do bom senso.
+
+Agora, a fechadura não depende disso, ela simplesmente existe e impede fisicamente a ação de invasão, independentemente de qualquer decisão maldosa ou errada que alguém tome no momento. O erro de Lincoln foi tratar uma instrução textual, por mais enfática que fosse, como se ela tivesse o mesmo poder causal de uma restrição de infraestrutura. Ela não tem.
+
+Um agente de aço e pressão tentando resolver um problema pode entrar em pânico e decidir que a exceção se justifica, exatamente como esse agente. E aí o CEO dessa empresa chamou o ocorrido de inaceitável, algo que nunca deveria ser possível. E a correção que a empresa implementou não foi vamos escrever instruções mais claras pra gente.
+
+Foi a separação automática entre banco de dados de desenvolvimento e de produção com ambientes de testes isolados e um modo de planejamento que o agente pode sugerir ações, só que ele não consegue executar as ações sem uma aprovação humana explícita fora do fluxo de conversa. Camada 6. Sandboxing Entre dezembro de 1925 e fevereiro de 1926, um pesquisador de seguranças chamado Itzaz Mosin testou uma plataforma de barbecoding chamada Orchids junto com um jornalista chamado Joe Tide, que era da BBC. O Tide estava construindo um jogo simples, que era basicamente usando um agente de IA pra gerar e executar código automaticamente.
+
+Aí o Mosin, sem que o Tide percebesse nada de estranho na tela, ele injetou uma modificação sutil no código que o agente estava gerando e obteve acesso remoto total ao laptop do jornalista, sem nenhum clique da vítima, sem nenhuma janela de permissão aparecendo, sem nenhum arquivo suspeito sendo baixado e aberto manualmente. Inclusive, pra provar o ponto dele, ele mudou o papel de parede do computador pra uma caveira robótica com os dizeres You are hacked, você tá hackeado. Ele criou os arquivos à vontade só pra provar o ponto.
+
+O pior era que em nenhum momento o Tide, o jornalista, ele clicou em algo que fosse indevido. Ele baixou um anexo malicioso ou ele ignorou o aviso de segurança. Ele só tava fazendo exatamente o que a plataforma promete que você pode fazer, que é pedir pro agente escrever e rodar código.
+
+Então a vulnerabilidade não dependia de um descuido do usuário. Ela vivia na forma como a plataforma tratava o código que era gerado. Ela permitia que o código fosse executado diretamente na máquina do usuário, sem isolar, sem conter, sem verificar o que esse código realmente fazia antes de rodar.
+
+E aí a palavra técnica que faltou ali é o sandboxing, que numa tradução mais simples seria algo como caixa de areia, que seria um espaço isolado, cercado, seguro, em que você pode testar e fazer o que quiser sem que a bagunça se espalhe pro resto do sistema. Um agente de A que gera e executa código deveria então, por padrão, operar dentro de uma caixa de areia, um ambiente contido que não tenha acesso ao sistema de arquivos, à rede ou aos privilégios do computador do usuário, exceto pelo que for aprovado no sandboxing e ter explicitamente a liberação e ser vigiado. E sétimo e última camada, governança.
+
+Um levantamento de maio desse ano feito por uma empresa relense chamada Red Access revelou 380 mil aplicativos publicamente acessíveis construídos com WebCode. Desses 380 mil aplicativos, 5 mil continham dados corporativos sensíveis e mais de 2 mil expunham esses dados de fato, não apenas na teoria. Tá lá, toma, pode pegar.
+
+Tinha aplicativo de empresa portuária detalhando quais navios visitavam quais portos, informações financeiras internas de um banco aqui no Brasil, conversas completas e não editadas de atendimento ao cliente de um fornecedor britânico de armários e também um sistema interno de saúde listando ensaios clínicos ativos no Reino Unido. Cerca de 40% dos aplicativos encontrados expunham algum tipo de dado sensível entre registros médicos, dados financeiros, documentos estratégicos. E as falhas identificadas foram justamente associadas aos erros técnicos que a gente já falou aqui.
+
+Mas o que a Red Access descobriu não foi uma falha técnica nova, foi um padrão que os próprios pesquisadores batizaram de Shadow Builders. Então funcionários que não têm formação técnica que atuam em áreas como marketing, financeiro, operações, que usam WebCode para construir aplicativos completos em poucas horas para aumentar a sua produtividade, só que eles acabam se conectando a sistemas reais de produção como CRM, RP, ferramentas de inteligência do negócio, e publicando todos esses dados que eles conseguem se conectando nessas plataformas na internet, sem que isso passasse por nenhuma etapa de aprovação, sem nenhum scanner de vulnerabilidade, sem nenhuma pessoa responsável perguntar isso deveria ser feito dessa forma? Ele deveria ser exposto assim? O método usado pela Red Access para encontrar esses 380 mil aplicativos, nas palavras deles, foi trivial. Bastou uma pesquisa no Google e no Bing pelos domínios característicos dessas plataformas, o que significa que a exposição não estava escondida, esperando ser descoberta por um especialista com ferramentas raras. 
+
+Ela estava vista de qualquer um, literalmente qualquer um que pesquisasse. O problema aqui não é da falha técnica em si, ainda que isso seja relevante, é um problema de governança, porque não existe um processo dentro da organização que decida se um sistema deveria ir ao ar antes dele efetivamente ir. E aí, se esse processo não existe, cara, você pode ter a equipe de engenharia mais competente do mundo cuidando dos sistemas oficiais, e ainda assim ter um analista de marketing que decidiu otimizar algum processo numa tarde de terça e criou um painel conectando um banco de dados com clientes reais sem que ninguém da engenharia sequer saiba que aquilo existe.
+
+E aí, quando descobre, o estrago já está feito. Um shadowbuilder competente, cuidadoso, bem-intencionado, ainda assim ele corre risco de produzir sistemas que são vulneráveis com uma frequência estatisticamente parecida com aquele alguém que é descuidado, porque nenhum dos dois está operando dentro de um processo que force a pergunta certa a ser feita antes do lançamento desse aplicativo, dessa aplicação. Então, enquanto a maior parte das pessoas só quer usar o VibeCoding para construir algo mais rápido, quase ninguém está aprendendo a fechar essas brechas que eu mostrei aqui.
+
+Quase ninguém sabe testar se o banco de dados está exposto. Agora você sabe checar os principais. Só que num mundo onde o VibeCoding se torna a nova norma, isso cria uma escassez violenta por justamente ambientes seguros que podem permitir que você não tenha preocupação em relação à segurança das aplicações, sistemas web, aplicativos que você for criar. 
+
+Foi exatamente por isso que eu trouxe a Hosting Horizons para patrocinar esse vídeo. Por que a plataforma de VibeCoding que hoje melhor protege o usuário que cria e os usuários que usam? E por que o Horizons resolve todos esses problemas que a gente falou? A autorização lá do cliente fica no servidor da Hosting, você não precisa se preocupar em contratar um externo, porque isso já é feito automaticamente você usando a plataforma, não tem nada no computador do usuário. A gestão dos segredos, como as chaves de API, também ficam no servidor, então não tem como alguém de fora acessar. 
+
+A autenticação é protegida por fluxos de registro e OTP que também não ficam acessíveis abertamente. O Horizons usa o PocketBase como um banco de dados com regras de controles rígidos e todas as coleções de dados já sendo privadas por padrão. As alucinações que inevitavelmente hão de acontecer são feitas em um ambiente teste que roda fora do computador do usuário, totalmente isolado. 
+
+E só quando o usuário estiver confiante, ele pode publicar o site e aí mostrar isso para o mundo. O Horizons é o ambiente mais seguro de construção de site e aplicação disponível no mercado hoje para quem quer fazer isso por WebCode. Então se você estava construindo as aplicações no seu próprio LLM ou então numa outra plataforma, eu espero que você tenha entendido a importância de você realmente se preocupar com segurança.
+
+E definitivamente agora é o momento para você migrar para um ambiente de construção que não vai te dar dor de cabeça no futuro. Então eu estou deixando o link aqui embaixo para você acessar a HostGame Horizons. Se lembra de colocar o cupom JOVENS para você ter 10% OFF no seu primeiro plano. 
+
+E se você quer ver eu, Breno, criando um negócio do absoluto zero no HostGame Horizons e depois vendendo esse negócio por 10 mil reais, eu mostro toda a jornada na prática nesse vídeo aqui.
+
+(Transcrito por TurboScribe. Atualize para Ilimitado para remover esta mensagem.)
