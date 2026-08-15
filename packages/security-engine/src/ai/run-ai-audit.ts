@@ -1,6 +1,6 @@
 import type { Category, SecurityFinding, Severity } from '@securevibe/shared/types'
 import type { SourceFile } from '../types'
-import { GROQ_DEFAULT_MODEL, runGroqCompletion } from './groq-client'
+import { GEMINI_DEFAULT_MODEL, runGeminiCompletion } from './gemini-client'
 import { buildAuditSystemPrompt, buildAuditUserPrompt } from './audit-prompt'
 import { AI_RULESET } from './ruleset'
 
@@ -44,12 +44,12 @@ export type AiAuditOptions = { scanId: string; repoLabel: string; model?: string
 export async function runAiSecurityAudit(files: SourceFile[], options: AiAuditOptions): Promise<SecurityFinding[]> {
   const ruleMap = new Map(AI_RULESET.map((rule) => [rule.id, rule]))
 
-  const raw = await runGroqCompletion(
+  const raw = await runGeminiCompletion(
     [
       { role: 'system', content: buildAuditSystemPrompt() },
       { role: 'user', content: buildAuditUserPrompt(files, options.repoLabel) },
     ],
-    { model: options.model ?? GROQ_DEFAULT_MODEL, temperature: 0.15, maxCompletionTokens: 8000, reasoningEffort: 'medium' }
+    { model: options.model ?? GEMINI_DEFAULT_MODEL, maxOutputTokens: 65536, topP: 0.95, thinkingLevel: 'medium' }
   )
 
   const rawFindings = extractJsonArray(raw)
@@ -74,7 +74,7 @@ export async function runAiSecurityAudit(files: SourceFile[], options: AiAuditOp
         evidence: [
           {
             kind: 'pattern',
-            message: `Detectado pela auditoria IA (Groq · ${options.model ?? GROQ_DEFAULT_MODEL}) com base na regra ${rule.id}.`,
+            message: `Detectado pela auditoria IA (Gemini · ${options.model ?? GEMINI_DEFAULT_MODEL}) com base na regra ${rule.id}.`,
             snippet: item.snippet,
           },
         ],
