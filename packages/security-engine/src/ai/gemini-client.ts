@@ -1,6 +1,6 @@
 // Preferência fixa do utilizador: a auditoria IA deve usar Gemini com Google Search.
 // O modelo por omissão deve ser sempre "models/gemini-3.7-flash".
-export const GEMINI_DEFAULT_MODEL = 'models/gemini-3.7-flash'
+export const GEMINI_DEFAULT_MODEL = 'gemini-3.5-flash-lite'
 const GEMINI_GENERATE_CONTENT_URL = 'https://generativelanguage.googleapis.com/v1beta'
 
 export type GeminiChatMessage = { role: 'system' | 'user' | 'assistant'; content: string }
