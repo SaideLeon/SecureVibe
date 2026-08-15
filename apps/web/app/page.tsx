@@ -9,7 +9,7 @@ const counts = findings.reduce<Record<Severity, number>>((acc, finding) => ({ ..
 
 export default function Home() {
   return <main className="shell">
-    <nav className="topbar"><div className="brand">SecureVibe</div><a className="primary-link" href="/api/scans/demo">Run demo scan</a></nav>
+    <nav className="topbar"><div className="brand">SecureVibe</div><div className="actions"><a className="primary-link" href="/scan">Analisar GitHub</a><a className="primary-link" href="/api/scans/demo">Run demo scan</a></div></nav>
     <section className="hero">
       <div><p className="eyebrow">Build with AI. Ship with confidence.</p><h1>Security layer for AI-built applications.</h1><p className="lede">Connect your repo, scan your app, fix the risks, and prove each vulnerability is secure with evidence-backed findings, suggested patches, and tests.</p>
       <div className="pill-row"><span>GitHub / ZIP input</span><span>Static + AI analysis</span><span>PR-ready fixes</span></div></div>

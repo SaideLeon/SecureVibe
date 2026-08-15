@@ -5,7 +5,7 @@ const MAX_TOTAL_CHARS = 55_000
 const MAX_FILE_CHARS = 8_000
 
 // Ficheiros com maior probabilidade de conter vulnerabilidades reais entram primeiro
-// no orçamento de contexto enviado à Groq.
+// no orçamento de contexto enviado à Gemini.
 const PRIORITY_HINTS = [
   /auth/i, /middleware/i, /\bapi\//i, /route\.(ts|js)/i, /payment/i, /pagamento/i,
   /webhook/i, /supabase/i, /jwt/i, /session/i, /admin/i, /upload/i, /\.env/i, /config/i, /otp/i,

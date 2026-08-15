@@ -3,7 +3,7 @@ import { z } from 'zod'
 import { calculateSecurityScore, runSecurityScan } from '@securevibe/security-engine'
 import { fetchGithubRepoFiles } from '@securevibe/security-engine/github/fetch-repo'
 import { runAiSecurityAudit } from '@securevibe/security-engine/ai/run-ai-audit'
-import { GROQ_DEFAULT_MODEL } from '@securevibe/security-engine/ai/groq-client'
+import { GEMINI_DEFAULT_MODEL } from '@securevibe/security-engine/ai/gemini-client'
 import type { Severity } from '@securevibe/shared/types'
 
 export const runtime = 'nodejs'
@@ -41,7 +41,7 @@ export async function POST(request: Request) {
   let aiFindings: Awaited<ReturnType<typeof runAiSecurityAudit>> = []
   let aiError: string | undefined
   try {
-    aiFindings = await runAiSecurityAudit(repoData.files, { scanId, repoLabel, model: GROQ_DEFAULT_MODEL })
+    aiFindings = await runAiSecurityAudit(repoData.files, { scanId, repoLabel, model: GEMINI_DEFAULT_MODEL })
   } catch (error) {
     aiError = error instanceof Error ? error.message : 'Falha na auditoria por IA.'
   }
@@ -58,7 +58,7 @@ export async function POST(request: Request) {
     status: 'completed',
     repo: repoLabel,
     filesAnalyzed: repoData.files.length,
-    model: GROQ_DEFAULT_MODEL,
+    model: GEMINI_DEFAULT_MODEL,
     aiError,
     ...score,
     counts,

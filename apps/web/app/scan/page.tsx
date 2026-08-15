@@ -97,7 +97,7 @@ export default function ScanPage() {
             style={inputStyle}
           />
           <button className="primary-button" onClick={handleScan} disabled={loading || !repoUrl}>
-            {loading ? 'A analisar…' : 'Analisar com IA (Groq · gpt-oss-120b)'}
+            {loading ? 'A analisar…' : 'Analisar com IA (Gemini · 3.7 Flash)'}
           </button>
         </div>
 
