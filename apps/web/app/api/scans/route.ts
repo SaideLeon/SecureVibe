@@ -3,7 +3,7 @@ import { z } from 'zod'
 import { calculateSecurityScore, runSecurityScan } from '@securevibe/security-engine'
 import { fetchGithubRepoFiles } from '@securevibe/security-engine/github/fetch-repo'
 import { runAiSecurityAudit } from '@securevibe/security-engine/ai/run-ai-audit'
-import { GEMINI_DEFAULT_MODEL } from '@securevibe/security-engine/ai/gemini-client'
+import { assertAllowedGeminiModel, GEMINI_DEFAULT_MODEL } from '@securevibe/security-engine/ai/gemini-client'
 import type { Severity } from '@securevibe/shared/types'
 
 export const runtime = 'nodejs'
@@ -12,6 +12,7 @@ export const maxDuration = 120
 const bodySchema = z.object({
   repoUrl: z.string().min(3, 'Indique um URL de repositório GitHub ou "owner/repo".'),
   githubToken: z.string().optional(),
+  model: z.string().optional(),
 })
 
 export async function POST(request: Request) {
@@ -22,6 +23,12 @@ export async function POST(request: Request) {
   }
 
   const { repoUrl, githubToken } = parsed.data
+  const model = parsed.data.model || GEMINI_DEFAULT_MODEL
+  try {
+    assertAllowedGeminiModel(model)
+  } catch (error) {
+    return NextResponse.json({ error: error instanceof Error ? error.message : 'Modelo Gemini inválido.' }, { status: 400 })
+  }
   const scanId = `scan_${Date.now().toString(36)}`
 
   let repoData: Awaited<ReturnType<typeof fetchGithubRepoFiles>>
@@ -41,7 +48,7 @@ export async function POST(request: Request) {
   let aiFindings: Awaited<ReturnType<typeof runAiSecurityAudit>> = []
   let aiError: string | undefined
   try {
-    aiFindings = await runAiSecurityAudit(repoData.files, { scanId, repoLabel, model: GEMINI_DEFAULT_MODEL })
+    aiFindings = await runAiSecurityAudit(repoData.files, { scanId, repoLabel, model })
   } catch (error) {
     aiError = error instanceof Error ? error.message : 'Falha na auditoria por IA.'
   }
@@ -58,7 +65,7 @@ export async function POST(request: Request) {
     status: 'completed',
     repo: repoLabel,
     filesAnalyzed: repoData.files.length,
-    model: GEMINI_DEFAULT_MODEL,
+    model,
     aiError,
     ...score,
     counts,

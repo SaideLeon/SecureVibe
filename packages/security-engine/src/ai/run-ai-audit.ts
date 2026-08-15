@@ -49,7 +49,7 @@ export async function runAiSecurityAudit(files: SourceFile[], options: AiAuditOp
       { role: 'system', content: buildAuditSystemPrompt() },
       { role: 'user', content: buildAuditUserPrompt(files, options.repoLabel) },
     ],
-    { model: options.model ?? GEMINI_DEFAULT_MODEL, maxOutputTokens: 65536, topP: 0.95, thinkingLevel: 'medium' }
+    { model: options.model ?? GEMINI_DEFAULT_MODEL, thinkingLevel: 'minimal' }
   )
 
   const rawFindings = extractJsonArray(raw)

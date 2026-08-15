@@ -1,11 +1,11 @@
-# Integração — Auditoria via GitHub + Gemini (models/gemini-3.7-flash)
+# Integração — Auditoria via GitHub + Gemini (modelos seleccionáveis)
 
 ## 1. Onde colocar cada ficheiro
 
 Copia estes ficheiros para o teu repositório `SaideLeon/SecureVibe`, exactamente nestes caminhos (substituem/estendem o que já existe):
 
 ```
-package.json                                              (actualizado — adiciona @google/genai)
+package.json                                              (actualizado — adiciona @google/genai + mime)
 .env.example                                               (novo)
 packages/shared/src/types.ts                                (actualizado — novas categorias)
 packages/security-engine/src/ai/ruleset.ts                  (novo — catálogo R01-R25 + CTF-R01-11)
@@ -38,7 +38,7 @@ Não é preciso `GITHUB_TOKEN` global — o utilizador cola o token dele no form
 1. O utilizador cola `https://github.com/owner/repo` (ou `owner/repo`, ou um link `.../tree/branch/subpasta`) e, opcionalmente, um PAT do GitHub.
 2. `fetch-repo.ts` resolve o branch por omissão, lista a árvore completa (`git/trees?recursive=1`) e descarrega até 80 ficheiros de código relevantes (ignora `node_modules`, `.next`, lockfiles, binários, ficheiros >200KB).
 3. `runSecurityScan` (motor estático já existente, hoje só com R09-Open-Redirect) corre sobre esses ficheiros.
-4. `run-ai-audit.ts` envia os ficheiros mais sensíveis (auth, middleware, pagamentos, Supabase, uploads, OTP — priorizados por `audit-prompt.ts`, com corte em ~55k caracteres para caber no contexto) para a Gemini, com o catálogo completo R01–R25 + CTF-R01–11 no prompt de sistema, Google Search activo e o modelo **fixo em `models/gemini-3.7-flash`** (`gemini-client.ts`).
+4. `run-ai-audit.ts` envia os ficheiros mais sensíveis (auth, middleware, pagamentos, Supabase, uploads, OTP — priorizados por `audit-prompt.ts`, com corte em ~55k caracteres para caber no contexto) para a Gemini, com o catálogo completo R01–R25 + CTF-R01–11 no prompt de sistema, Google Search activo e o modelo escolhido pelo utilizador dentro da família Gemini (ex.: `gemini-flash-lite-latest`, `models/gemini-flash-latest`, `gemini-3.7-flash`).
 5. As duas listas de findings são combinadas, o score é recalculado (`calculateSecurityScore` já existente), e tudo é devolvido ao browser.
 6. O botão "Descarregar Blueprint" chama `/api/scans/blueprint`, que gera o `.md` completo (contexto, prova, correcção, teste, checklist) por vulnerabilidade — mesma estrutura do `blueprint-template.md` que enviaste.
 
@@ -50,4 +50,4 @@ O motor estático actual usa o id `"R09"` para **Open Redirect**. O catálogo co
 
 - Repositórios muito grandes: só os ficheiros mais "suspeitos" (por nome de caminho) entram na análise IA; o resto fica só no motor estático. O aviso "`X de Y ficheiros analisados`" aparece na resposta.
 - Sem persistência: o resultado do scan vive só na memória do browser durante a sessão; recarregar a página perde os findings (o blueprint tem de ser descarregado antes de sair). Se quiseres histórico de scans, o próximo passo natural é uma tabela Supabase `scans` + `findings`, seguindo o mesmo padrão que já usas no Muneri/QueliMercado.
-- `@google/genai` na versão declarada no `package.json` — ajusta se a Google já tiver publicado uma major mais recente.
+- `@google/genai` e `mime` nas versões declaradas no `package.json` — ajusta se a Google já tiver publicado uma major mais recente.

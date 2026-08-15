@@ -81,7 +81,7 @@ export function generateBlueprintMarkdown(findings: SecurityFinding[], meta: Blu
     `**Fonte:** ${meta.sourceLabel}`,
     `**Scan ID:** ${meta.scanId}`,
     `**Gerado em:** ${meta.generatedAt}`,
-    '**Motor:** Motor estático SecureVibe + Auditoria IA (Gemini · models/gemini-3.7-flash)',
+    '**Motor:** Motor estático SecureVibe + Auditoria IA (Gemini)',
     '',
     '---',
     '',

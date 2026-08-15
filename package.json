@@ -15,7 +15,8 @@
     "react-dom": "latest",
     "typescript": "latest",
     "zod": "latest",
-    "@google/genai": "^1.0.0"
+    "@google/genai": "latest",
+    "mime": "latest"
   },
   "devDependencies": {
     "@types/node": "latest",
