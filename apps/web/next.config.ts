@@ -6,6 +6,7 @@ const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '../..')
 
 const nextConfig: NextConfig = {
   transpilePackages: ['@securevibe/security-engine', '@securevibe/shared'],
+  serverExternalPackages: ['@google/genai', 'mime'],
   turbopack: {
     root: repoRoot,
   },

@@ -3,6 +3,16 @@
 import { useState } from 'react'
 import type { SecurityFinding, Severity } from '@securevibe/shared/types'
 
+const geminiModels = [
+  { id: 'gemini-3.1-flash-lite', label: 'Gemini 3.1 Flash-Lite' },
+  { id: 'gemini-3.5-flash-lite', label: 'Gemini 3.5 Flash-Lite' },
+  { id: 'gemini-3.5-flash', label: 'Gemini 3.5 Flash' },
+  { id: 'gemini-3.6-flash', label: 'Gemini 3.6 Flash' },
+  { id: 'gemini-3.7-flash', label: 'Gemini 3.7 Flash' },
+  { id: 'gemini-flash-lite-latest', label: 'Gemini Flash-Lite Latest' },
+  { id: 'models/gemini-flash-latest', label: 'Gemini Flash Latest' },
+]
+
 type ScanResult = {
   scanId: string
   repo: string
@@ -26,6 +36,7 @@ const inputStyle = {
 export default function ScanPage() {
   const [repoUrl, setRepoUrl] = useState('')
   const [githubToken, setGithubToken] = useState('')
+  const [model, setModel] = useState(geminiModels[0].id)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [result, setResult] = useState<ScanResult | null>(null)
@@ -39,7 +50,7 @@ export default function ScanPage() {
       const res = await fetch('/api/scans', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ repoUrl, githubToken: githubToken || undefined }),
+        body: JSON.stringify({ repoUrl, githubToken: githubToken || undefined, model }),
       })
       const data = await res.json()
       if (!res.ok) throw new Error(data.error || 'Falha ao analisar o repositório.')
@@ -96,8 +107,16 @@ export default function ScanPage() {
             type="password"
             style={inputStyle}
           />
+
+          <select value={model} onChange={(e) => setModel(e.target.value)} style={inputStyle}>
+            {geminiModels.map((option) => (
+              <option key={option.id} value={option.id}>
+                {option.label}
+              </option>
+            ))}
+          </select>
           <button className="primary-button" onClick={handleScan} disabled={loading || !repoUrl}>
-            {loading ? 'A analisar…' : 'Analisar com IA (Groq · gpt-oss-120b)'}
+            {loading ? 'A analisar…' : 'Analisar com IA (Gemini)'}
           </button>
         </div>
 

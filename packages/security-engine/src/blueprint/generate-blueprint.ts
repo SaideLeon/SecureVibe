@@ -81,7 +81,7 @@ export function generateBlueprintMarkdown(findings: SecurityFinding[], meta: Blu
     `**Fonte:** ${meta.sourceLabel}`,
     `**Scan ID:** ${meta.scanId}`,
     `**Gerado em:** ${meta.generatedAt}`,
-    '**Motor:** Motor estático SecureVibe + Auditoria IA (Groq · openai/gpt-oss-120b)',
+    '**Motor:** Motor estático SecureVibe + Auditoria IA (Gemini)',
     '',
     '---',
     '',
@@ -123,6 +123,6 @@ export function generateBlueprintMarkdown(findings: SecurityFinding[], meta: Blu
     '',
     '---',
     '',
-    '_Blueprint gerado automaticamente pelo motor SecureVibe (estático + IA via Groq)._',
+    '_Blueprint gerado automaticamente pelo motor SecureVibe (estático + IA via Gemini)._',
   ].join('\n')
 }
